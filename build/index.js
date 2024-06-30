@@ -20,7 +20,7 @@ function main() {
     return __awaiter(this, void 0, void 0, function* () {
         yield dataBase_1.appDataSource.initialize()
             .then(() => {
-            app_1.default.listen(3001);
+            app_1.default.listen(4000);
             console.log(dataBase_1.appDataSource.isInitialized);
             setInterval(cleanTokens_1.cleanTokens, 60000);
         })
