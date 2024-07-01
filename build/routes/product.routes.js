@@ -63,6 +63,12 @@ router.post("/product/register/", (0, express_validator_1.checkSchema)({
         notEmpty: true,
         errorMessage: "error en el campo activo"
     },
+    image: {
+        in: ["body"],
+        isString: true,
+        notEmpty: true,
+        errorMessage: "error en el campo image"
+    },
     comerciable: {
         in: ["body"],
         isBoolean: true,
@@ -78,6 +84,8 @@ router.post("/product/register/", (0, express_validator_1.checkSchema)({
             name: req.body["name"],
             category: req.body["category"],
             price: req.body["price"],
+            description: req.body["description"],
+            image: req.body["image"],
             cantidad: req.body["cantidad"],
             activo: req.body["activo"],
             comerciable: req.body["comerciable"]
@@ -112,6 +120,12 @@ router.put("/product/update_by_id/:id", (0, express_validator_1.checkSchema)({
         isString: true,
         errorMessage: "error en el campo categoria"
     },
+    description: {
+        in: ["body"],
+        isString: true,
+        notEmpty: true,
+        errorMessage: "error en el campo descripcion"
+    },
     price: {
         in: ["body"],
         isNumeric: true,
@@ -123,6 +137,12 @@ router.put("/product/update_by_id/:id", (0, express_validator_1.checkSchema)({
         isNumeric: true,
         notEmpty: true,
         errorMessage: "error en el campo cantidad"
+    },
+    image: {
+        in: ["body"],
+        isString: true,
+        notEmpty: true,
+        errorMessage: "error en el campo image"
     },
     activo: {
         in: ["body"],
