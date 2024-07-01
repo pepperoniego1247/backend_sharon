@@ -42,7 +42,7 @@ const ejs = __importStar(require("ejs"));
 const puppeteer_html_pdf_1 = __importDefault(require("puppeteer-html-pdf"));
 const generatePdf = (data) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const templatePath = path_1.default.join(__dirname, '../extras/saleNote.ejs');
+        const templatePath = path_1.default.resolve(__dirname, '../extras/saleNote.ejs');
         const template = fs_1.default.readFileSync(templatePath, 'utf-8');
         const html = ejs.render(template, data);
         const htmlPdf = new puppeteer_html_pdf_1.default();
