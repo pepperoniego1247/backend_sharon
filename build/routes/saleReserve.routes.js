@@ -157,7 +157,7 @@ router.post("/sale/register/:id", (0, express_validator_1.checkSchema)({
         yield dataBase_1.appDataSource.getRepository("sale").update({ id: sale["id"] }, { totalAmount: saleTotalAmount });
         const saleN = yield dataBase_1.appDataSource.getRepository("sale").findOne({ where: { id: sale["id"] }, relations: ["asignedEmployee", "saleDetails"] });
         return res.send({
-            pdfUrl: `http://localhost:3001/sale/get_sale_note_by_code/${saleN["id"]}`,
+            pdfUrl: `https://backend-sharon-3.onrender.com/sale/get_sale_note_by_code/${saleN["id"]}`,
             documentId: saleN["id"]
         });
     }
