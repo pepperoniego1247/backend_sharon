@@ -150,7 +150,7 @@ router.post("/sale_product/register/", (0, express_validator_1.checkSchema)({
         }
         listNewDetailsSale.forEach((product) => __awaiter(void 0, void 0, void 0, function* () { return yield dataBase_1.appDataSource.getRepository("product_sale_detail").save(product); }));
         return res.send({
-            pdfUrl: `http://localhost:3001/sale_product/get_sale_note_by_code/${saleIdTemp}`,
+            pdfUrl: `https://backend-sharon-3.onrender.com/sale_product/get_sale_note_by_code/${saleIdTemp}`,
             documentId: saleIdTemp
         });
     }
