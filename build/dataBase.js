@@ -17,13 +17,13 @@ exports.appDataSource = new typeorm_1.DataSource({
     extra: {
         options: {
             trustServerCertificate: true,
-            connectionTimeout: 100000, // Tiempo de espera para la conexión
-            requestTimeout: 100000, // Tiempo de espera para las solicitudes
+            connectionTimeout: 50000, // Tiempo de espera para la conexión
+            requestTimeout: 50000, // Tiempo de espera para las solicitudes
         },
     },
     options: {
-        connectTimeout: 100000,
+        connectTimeout: 50000,
     },
-    connectionTimeout: 100000,
-    requestTimeout: 100000
+    connectionTimeout: 50000,
+    requestTimeout: 50000
 });
