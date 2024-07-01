@@ -6,13 +6,14 @@
   "scripts": {
     "dev": "ts-node-dev --respawn src/index.ts",
     "build": "npx tsc"
-    
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",
+    "date-fns": "^3.6.0",
+    "date-fns-tz": "^3.1.3",
     "ejs": "^3.1.10",
     "express": "^4.19.2",
     "morgan": "^1.10.0",

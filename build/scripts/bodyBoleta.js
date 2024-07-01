@@ -11,10 +11,16 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.newBoletaVenta = void 0;
 const numbersToText_1 = require("../scripts/numbersToText");
+const date_fns_tz_1 = require("date-fns-tz");
 const newBoletaVenta = (products, customer, saleProduct, personaId, personaToken, ruc) => __awaiter(void 0, void 0, void 0, function* () {
     const listProducts = [];
     const totalAmountWithoutIgv = saleProduct["totalAmount"] / (1 + 0.18);
     const igvTotalAmount = saleProduct["totalAmount"] - totalAmountWithoutIgv;
+    const now = new Date();
+    const timeZone = 'America/Bogota'; // Ajusta esto a tu zona horaria local
+    const zonedTime = (0, date_fns_tz_1.toZonedTime)(now, timeZone);
+    const issueDate = (0, date_fns_tz_1.format)(zonedTime, 'yyyy-MM-dd', { timeZone });
+    const issueTime = (0, date_fns_tz_1.format)(zonedTime, 'HH:mm:ss', { timeZone });
     const lastDocumentResponse = () => __awaiter(void 0, void 0, void 0, function* () {
         try {
             const response = yield fetch("https://back.apisunat.com/personas/lastDocument", {
@@ -146,10 +152,10 @@ const newBoletaVenta = (products, customer, saleProduct, personaId, personaToken
                 "_text": `B001-${suggestedNumber}`
             },
             "cbc:IssueDate": {
-                "_text": new Date().toLocaleDateString("en-GB").split("/").reverse().map(part => part.padStart(2, '0')).join("-")
+                "_text": issueDate
             },
             "cbc:IssueTime": {
-                "_text": new Intl.DateTimeFormat('default', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false }).format(new Date())
+                "_text": issueTime
             },
             "cbc:InvoiceTypeCode": {
                 "_attributes": {
