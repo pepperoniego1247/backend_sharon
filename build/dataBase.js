@@ -11,7 +11,7 @@ exports.appDataSource = new typeorm_1.DataSource({
     database: "SistemaSharonVera",
     synchronize: true,
     logging: false,
-    entities: ["src/entities/*.ts"],
+    entities: ["build/entities/*.js"],
     subscribers: [],
     migrations: [],
     extra: {
