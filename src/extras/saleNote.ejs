@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nota de Venta</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            margin-top: 20px;
+            padding: 0;
+        }
+
+        .receipt {
+            width: 300px;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #000;
+        }
+
+        .header,
+        .footer {
+            text-align: center;
+        }
+
+        .header img {
+            max-width: 100%;
+        }
+
+        .details,
+        .items,
+        .total {
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        .details td,
+        .items td,
+        .total td {
+            padding: 5px;
+        }
+
+        .items th,
+        .items td {
+            border-top: 1px solid #000;
+            border-bottom: 1px solid #000;
+        }
+
+        .total {
+            text-align: right;
+        }
+
+        .center {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="receipt">
+        <div class="header">
+            <h2>Vera Zavaleta Sharoon</h2>
+            <p>Av. Cuba Nro. 389 Urb. El Recreo<br>Et. 2 Trujillo Trujillo La Libertad</p>
+        </div>
+        <table class="details">
+            <tr>
+                <td>Nota de Venta</td>
+                <td class="center"><%= code %></td>
+            </tr>
+            <tr>
+                <td>Emisión:</td>
+                <td class="center">
+                    <%= emissionDate %>
+                </td>
+            </tr>
+        </table>
+        <table class="items">
+            <tr>
+                <th>Cant</th>
+                <th>Descripción</th>
+                <th>P. Unit</th>
+                <th>P. Total</th>
+            </tr>
+            <% products.forEach(product=> { %>
+                <tr>
+                    <td>
+                        <%= product.quantity %>
+                    </td>
+                    <td>
+                        <%= product.description %>
+                    </td>
+                    <td>
+                        <%= product.unitPrice %>
+                    </td>
+                    <td>
+                        <%= product.totalPrice %>
+                    </td>
+                </tr>
+                <% }) %>
+        </table>
+        <table class="total">
+            <tr>
+                <td>Op. Gravada</td>
+                <td>
+                    <%= opGravada %>
+                </td>
+            </tr>
+            <tr>
+                <td>IGV</td>
+                <td>
+                    <%= igv %>
+                </td>
+            </tr>
+            <tr>
+                <td>Importe Total</td>
+                <td>
+                    <%= importeTotal %>
+                </td>
+            </tr>
+        </table>
+        <div class="footer">
+            <p><strong>NO ES UNA BOLETA DE VENTA</strong></p>
+        </div>
+    </div>
+</body>
+
+</html>
