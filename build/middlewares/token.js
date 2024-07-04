@@ -32,7 +32,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.validationToken = void 0;
+exports.validationToken = validationToken;
 const jwt = __importStar(require("jsonwebtoken"));
 const dotenv = __importStar(require("dotenv"));
 dotenv.config();
@@ -55,4 +55,3 @@ function validationToken(req, res, next) {
         }
     });
 }
-exports.validationToken = validationToken;

@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.numeroALetras = void 0;
+exports.numeroALetras = numeroALetras;
 function numeroALetras(numero) {
     const unidades = ["", "UNO", "DOS", "TRES", "CUATRO", "CINCO", "SEIS", "SIETE", "OCHO", "NUEVE"];
     const decenas = ["", "DIEZ", "VEINTE", "TREINTA", "CUARENTA", "CINCUENTA", "SESENTA", "SETENTA", "OCHENTA", "NOVENTA"];
@@ -88,4 +88,3 @@ function numeroALetras(numero) {
     const parteDecimalLetras = `${decimal.toString().padStart(2, '0')}/100`;
     return `${parteEnteraLetras.trim()} CON ${parteDecimalLetras} SOLES`;
 }
-exports.numeroALetras = numeroALetras;
