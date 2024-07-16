@@ -78,9 +78,9 @@ router.post("/user/login/", (0, express_validator_1.checkSchema)({
     try {
         const userToAuth = yield dataBase_1.appDataSource.getRepository("user").findOne({ where: { userName: req.body["userName"] }, relations: ["employee", "employee.role"] });
         if (!userToAuth)
-            return res.status(403).send("el username no existe!");
+            return res.status(403).json({ message: "el username no existe!" });
         if (!(yield bcrypt.compare(req.body["password"], userToAuth["password"])))
-            return res.status(401).send("contraseña erronea!");
+            return res.status(401).json({ message: "contraseña erronea!" });
         const accessToken = yield jwt.sign({
             userName: userToAuth["userName"],
             id: userToAuth["id"]
