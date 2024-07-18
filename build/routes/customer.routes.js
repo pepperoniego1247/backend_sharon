@@ -148,6 +148,21 @@ router.get("/customer/get_all/", token_1.validationToken, (_, res) => __awaiter(
         return res.status(500).send(error);
     }
 }));
+router.get("/customer/get_by_dni/:id", (0, express_validator_1.param)("id")
+    .isNumeric({ no_symbols: true })
+    .notEmpty()
+    .withMessage("el parametro dni es erroneo"), validateRequest_1.validateReq, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const dni = req.params["id"];
+    try {
+        const data = yield dataBase_1.appDataSource.getRepository("customer").createQueryBuilder("customer")
+            .leftJoinAndSelect("customer.person", "person").where("person.dni = :dni", { dni })
+            .getOne();
+        return res.send(data);
+    }
+    catch (error) {
+        return res.status(500).send(error);
+    }
+}));
 router.put("/customer/update_by_id/:id", (0, express_validator_1.param)("id")
     .isNumeric({ no_symbols: true })
     .notEmpty()
