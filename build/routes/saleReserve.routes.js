@@ -140,11 +140,11 @@ router.post("/sale/register/:id", (0, express_validator_1.checkSchema)({
             } while (status === "PENDIENTE");
             if (status === "EXCEPCION") {
                 yield dataBase_1.appDataSource.getRepository("sale").delete({ id: sale["id"] });
-                return res.status(403).send({ message: "Ha ocurrido un error interno en sunat, intente nuevamente!", status: requests_2.statusNewDocument });
+                return res.status(403).json({ message: "Ha ocurrido un error interno en sunat, intente nuevamente!", status: requests_2.statusNewDocument });
             }
             yield dataBase_1.appDataSource.getRepository("sale").update({ id: sale["id"] }, { sunatDocumentId: documentId, fileNameDocumentSunat: fileName });
             if (status === "RECHAZADO")
-                return res.status(403).send({ message: "El documento ha sido rechazado por sunat!, intente nuevamente", status: status });
+                return res.status(403).json({ message: "El documento ha sido rechazado por sunat!, intente nuevamente", status: status });
             tempSaleDetail.forEach((detail) => __awaiter(void 0, void 0, void 0, function* () { yield dataBase_1.appDataSource.getRepository("sale_detail").save(detail); }));
             yield dataBase_1.appDataSource.getRepository("reserve").update({ id: req.params["id"] }, { activo: false });
             return res.send({

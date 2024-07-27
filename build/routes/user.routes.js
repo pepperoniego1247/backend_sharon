@@ -105,7 +105,7 @@ router.post("/user/login/", (0, express_validator_1.checkSchema)({
         return res.send({
             message: "logeo existoso!",
             jwt: accessToken,
-            type: userToAuth.employee.role.name,
+            type: userToAuth.type,
             id: userToAuth.id,
             expirationDate: expirationDate
         });
@@ -136,6 +136,15 @@ router.post("/user/register/", (0, express_validator_1.checkSchema)({
         notEmpty: true,
         errorMessage: "el campo dni no puede estar vacio"
     },
+    type: {
+        in: ["body"],
+        custom: {
+            options: (value) => value === "Administrador" || value === "Moderador" || value === "Usuario"
+        },
+        isString: true,
+        notEmpty: true,
+        errorMessage: "Tipo de usuario invalido."
+    }
 }), validateRequest_1.validateReq, token_1.validationToken, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const userAlreadyExists = yield dataBase_1.appDataSource.getRepository("user").findOne({ where: { userName: req.body["userName"] } });
@@ -266,6 +275,15 @@ router.put("/user/edit_by_id/:id", (0, express_validator_1.checkSchema)({
             errorMessage: "max: 30 | min: 5 caracteres validos, contraseña incorrecta!"
         },
         isAlphanumeric: { errorMessage: "la contraseña solo debe contener letras y numeros" }
+    },
+    type: {
+        in: ["body"],
+        custom: {
+            options: (value) => value === "Administrador" || value === "Moderador" || value === "Usuario"
+        },
+        isString: true,
+        notEmpty: true,
+        errorMessage: "Tipo de usuario invalido."
     }
 }), (0, express_validator_1.param)("id")
     .isNumeric({ no_symbols: true })
@@ -280,8 +298,8 @@ router.put("/user/edit_by_id/:id", (0, express_validator_1.checkSchema)({
         const userData = __rest(req.body, []);
         const userToUpdate = Object.assign({}, userData);
         userToUpdate["password"] = yield bcrypt.hash(req.body["password"], 8);
-        const { userName, password } = userToUpdate;
-        yield dataBase_1.appDataSource.getRepository("user").update({ id: userToEdit["id"] }, { userName: userName, password: password });
+        const { userName, password, type } = userToUpdate;
+        yield dataBase_1.appDataSource.getRepository("user").update({ id: userToEdit["id"] }, { userName: userName, password: password, type: type });
         return res.send({
             message: "el usuario se ha actualizado!"
         });
