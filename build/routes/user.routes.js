@@ -173,10 +173,11 @@ router.post("/user/register/", (0, express_validator_1.checkSchema)({
 }));
 router.get("/user/get_all/", token_1.validationToken, (_, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const allUsers = yield dataBase_1.appDataSource.getRepository("user").find({ relations: ["employee", "employee.person", "employee.role"], select: ["id", "userName", "password"] });
+        const allUsers = yield dataBase_1.appDataSource.getRepository("user").find({ relations: ["employee", "employee.person", "employee.role"], select: ["id", "userName", "password", "type"] });
         if (!allUsers)
             return res.status(403).send({ message: "error al encontrar los usuarios!" });
         allUsers.forEach((user) => {
+            // console.log(user["type"]);
             const { password } = user;
             user["password"] = password.slice(0, 20);
         });
