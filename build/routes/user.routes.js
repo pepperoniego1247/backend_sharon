@@ -300,7 +300,7 @@ router.put("/user/edit_by_id/:id", (0, express_validator_1.checkSchema)({
         const userToUpdate = Object.assign({}, userData);
         userToUpdate["password"] = yield bcrypt.hash(req.body["password"], 8);
         const { userName, password, type } = userToUpdate;
-        yield dataBase_1.appDataSource.getRepository("user").update({ id: userToEdit["id"] }, { userName: userName, password: password, type: type });
+        (userToEdit["password"].slice(0, 20) !== req.body["password"]) ? yield dataBase_1.appDataSource.getRepository("user").update({ id: userToEdit["id"] }, { userName: userName, password: password, type: type }) : yield dataBase_1.appDataSource.getRepository("user").update({ id: userToEdit["id"] }, { userName: userName, type: type });
         return res.send({
             message: "el usuario se ha actualizado!"
         });
