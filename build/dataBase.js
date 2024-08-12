@@ -4,11 +4,11 @@ exports.appDataSource = void 0;
 const typeorm_1 = require("typeorm");
 exports.appDataSource = new typeorm_1.DataSource({
     type: "mssql",
-    host: "sharon-vera-database.cxe6wmoymm2o.us-east-1.rds.amazonaws.com",
+    host: "serversharonverabd.database.windows.net",
     port: 1433,
-    username: "admin",
+    username: "adminSQL",
     password: "310152Po",
-    database: "SistemaSharonVera",
+    database: "B_D_Sharon_Vera",
     synchronize: true,
     logging: false,
     entities: ["build/entities/*.js"],
