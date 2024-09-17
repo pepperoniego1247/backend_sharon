@@ -9,7 +9,7 @@ export class Payment extends BaseEntity {
     @ManyToOne(() => Employee, (employee) => employee.payments)
     employee: Employee;
 
-    @Column()
+    @Column({ nullable: false })
     extra: number;
 
     @Column()

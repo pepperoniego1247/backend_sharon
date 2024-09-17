@@ -32,7 +32,7 @@ __decorate([
     __metadata("design:type", String)
 ], User.prototype, "type", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ type: "nvarchar", length: "MAX", nullable: true }),
+    (0, typeorm_1.Column)({ length: "MAX", nullable: true }),
     __metadata("design:type", String)
 ], User.prototype, "avatar", void 0);
 __decorate([

@@ -25,7 +25,7 @@ export class Product extends BaseEntity {
     @Column()
     comerciable: boolean;
 
-    @Column({ type: "nvarchar", length: "MAX", nullable: true })
+    @Column({ length: "MAX", nullable: true })
     image: string;
 
     @Column({ nullable: true, length: 500 })

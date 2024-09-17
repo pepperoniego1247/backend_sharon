@@ -2,11 +2,11 @@ import { DataSource } from "typeorm";
 
 export const appDataSource = new DataSource({
     type: "mssql",
-    host: "serversharonverabd.database.windows.net",
+    host: "34.122.181.100",
     port: 1433,
-    username: "adminSQL",
-    password: "310152Po",
-    database: "B_D_Sharon_Vera",
+    username: "pepperoni",
+    password: "310152",
+    database: "bd-sharon-vera",
     synchronize: true,
     logging: false,
     entities: ["src/entities/*.ts"],

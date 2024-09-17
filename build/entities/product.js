@@ -45,7 +45,7 @@ __decorate([
     __metadata("design:type", Boolean)
 ], Product.prototype, "comerciable", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ type: "nvarchar", length: "MAX", nullable: true }),
+    (0, typeorm_1.Column)({ length: "MAX", nullable: true }),
     __metadata("design:type", String)
 ], Product.prototype, "image", void 0);
 __decorate([

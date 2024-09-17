@@ -23,6 +23,7 @@ function main() {
             app_1.default.listen(4000);
             console.log(dataBase_1.appDataSource.isInitialized);
             setInterval(cleanTokens_1.cleanTokens, 60000);
+            dataBase_1.appDataSource.destroy();
         })
             .catch((error) => {
             console.log(error);
