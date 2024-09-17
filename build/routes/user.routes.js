@@ -168,6 +168,7 @@ router.post("/user/register/", (0, express_validator_1.checkSchema)({
         });
     }
     catch (error) {
+        console.log(error);
         return res.status(500).json({ message: error });
     }
 }));
