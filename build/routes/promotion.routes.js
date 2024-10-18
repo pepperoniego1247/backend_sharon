@@ -67,7 +67,7 @@ router.post("/promotion/register/", (0, express_validator_1.checkSchema)({
         const { promotionDetails } = req.body;
         promotionDetails.forEach((name) => __awaiter(void 0, void 0, void 0, function* () {
             const newPromotionDetailCreated = Object.assign({}, newPromotionDetail);
-            newPromotionDetailCreated["service"] = yield dataBase_1.appDataSource.getRepository("service").findOne({ where: { description: name } });
+            newPromotionDetailCreated["service"] = yield dataBase_1.appDataSource.getRepository("service").findOne({ where: { description: name, activo: true } });
             yield dataBase_1.appDataSource.getRepository("promotion_detail").save(newPromotionDetailCreated);
         }));
         const promotionN = yield dataBase_1.appDataSource.getRepository("promotion").findOne({ where: { id: promotion["id"] }, relations: ["promotionDetails"] });
@@ -129,7 +129,7 @@ router.put("/promotion/update_by_id/:id", (0, express_validator_1.checkSchema)({
         const newPromotionDetailCreated = __rest({ promotion: promotionExists }, []);
         req.body["promotionDetails"].forEach((name) => __awaiter(void 0, void 0, void 0, function* () {
             const newPromotionDetail = Object.assign({}, newPromotionDetailCreated);
-            newPromotionDetail["service"] = yield dataBase_1.appDataSource.getRepository("service").findOne({ where: { description: name } });
+            newPromotionDetail["service"] = yield dataBase_1.appDataSource.getRepository("service").findOne({ where: { description: name, activo: true } });
             yield dataBase_1.appDataSource.getRepository("promotion_detail").save(newPromotionDetail);
         }));
         promotionExists["promotionDetails"].forEach((detail) => __awaiter(void 0, void 0, void 0, function* () { return yield dataBase_1.appDataSource.getRepository("promotion_detail").delete(detail["id"]); }));

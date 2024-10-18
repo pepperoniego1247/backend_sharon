@@ -49,7 +49,6 @@ const validateRequest_1 = require("../middlewares/validateRequest");
 const dataBase_1 = require("../dataBase");
 const dotenv = __importStar(require("dotenv"));
 const token_1 = require("../middlewares/token");
-const generateAnamnesis_1 = require("../scripts/generateAnamnesis");
 const router = (0, express_1.Router)();
 dotenv.config();
 router.get("/anamnesis/get_all/", token_1.validationToken, (_, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -615,19 +614,5 @@ router.put("/anamnesis/update_by_dni/:id", (0, express_validator_1.param)("id")
         message: "se ha actualizado con exito el Anamnesis!",
         data: updateData
     });
-}));
-router.get("/anamnesis/get_pdf_by_id/:id", (0, express_validator_1.param)("id")
-    .isNumeric({ no_symbols: true })
-    .notEmpty()
-    .withMessage("parametro id esperado!"), (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        const pdf = yield (0, generateAnamnesis_1.generatePdfAnamnesis)();
-        res.contentType('application/pdf');
-        res.send(pdf);
-    }
-    catch (error) {
-        console.error(error);
-        res.status(500).json({ message: 'El documento no se ha generado correctamente!' });
-    }
 }));
 exports.default = router;

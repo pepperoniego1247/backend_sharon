@@ -12,6 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Payment = void 0;
 const typeorm_1 = require("typeorm");
 const employee_1 = require("./employee");
+const payment_detail_1 = require("./payment_detail");
 let Payment = class Payment extends typeorm_1.BaseEntity {
 };
 exports.Payment = Payment;
@@ -20,13 +21,13 @@ __decorate([
     __metadata("design:type", Number)
 ], Payment.prototype, "id", void 0);
 __decorate([
+    (0, typeorm_1.OneToMany)(() => payment_detail_1.Payment_Detail, (payment_Detail) => payment_Detail.payment),
+    __metadata("design:type", Array)
+], Payment.prototype, "paymentDetails", void 0);
+__decorate([
     (0, typeorm_1.ManyToOne)(() => employee_1.Employee, (employee) => employee.payments),
     __metadata("design:type", employee_1.Employee)
 ], Payment.prototype, "employee", void 0);
-__decorate([
-    (0, typeorm_1.Column)({ nullable: false }),
-    __metadata("design:type", Number)
-], Payment.prototype, "extra", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", Date)
@@ -34,7 +35,11 @@ __decorate([
 __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", Number)
-], Payment.prototype, "totalAmount", void 0);
+], Payment.prototype, "total", void 0);
+__decorate([
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", Boolean)
+], Payment.prototype, "activo", void 0);
 exports.Payment = Payment = __decorate([
     (0, typeorm_1.Entity)()
 ], Payment);

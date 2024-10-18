@@ -77,9 +77,8 @@ router.post("/employee/register/", (0, express_validator_1.checkSchema)({
     }
 }), validateRequest_1.validateReq, token_1.validationToken, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const personAlreadyExists = yield dataBase_1.appDataSource.getRepository("person").findOne({ where: { dni: req.body["dni"] } });
-        if (personAlreadyExists)
-            return res.status(403).send({ message: "esta persona ya esta registrada" });
+        // const personAlreadyExists = await appDataSource.getRepository("person").findOne({ where: { dni: req.body["dni"] } });
+        // if (personAlreadyExists) return res.status(403).send({ message: "esta persona ya esta registrada" });
         const dniResponse = yield consultarDNI(req.body["dni"]);
         const nombresLista = dniResponse['nombres'].split(" ");
         nombresLista.forEach((nombre, index) => nombresLista[index] = nombre[0] + nombre.slice(1, nombre.length).toLowerCase());

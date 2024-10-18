@@ -62,7 +62,7 @@ function consultarDNI(dni) {
                 },
             });
             if (!response.ok)
-                throw new Error("HTTP ERROR EN RENIEC");
+                throw new Error("No se encontro a la persona o el servidor de reniec fallo.");
             return response.json();
         }
         catch (error) {
@@ -118,6 +118,8 @@ router.post("/customer/register/", (0, express_validator_1.checkSchema)({
             return res.status(403).send({ message: "el cliente ya existe" });
         if (req.body["dni"] !== "") {
             const dniResponse = yield consultarDNI(req.body["dni"]);
+            if (!dniResponse["nombres"])
+                throw new Error("El");
             const nombresLista = dniResponse['nombres'].split(" ");
             nombresLista.forEach((nombre, index) => nombresLista[index] = nombre[0] + nombre.slice(1, nombre.length).toLowerCase());
             req.body["firstName"] = nombresLista.join(" ");
@@ -136,7 +138,7 @@ router.post("/customer/register/", (0, express_validator_1.checkSchema)({
         return res.send(newCustomerCreated);
     }
     catch (error) {
-        return res.status(500).send(error);
+        return res.status(500).send({ message: error.toString() });
     }
 }));
 router.get("/customer/get_all/", token_1.validationToken, (_, res) => __awaiter(void 0, void 0, void 0, function* () {

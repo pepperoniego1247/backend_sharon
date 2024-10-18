@@ -190,9 +190,7 @@ router.get("/user/get_all/", token_1.validationToken, (_, res) => __awaiter(void
 }));
 router.get("/user/get_by_userName/:userName", (0, express_validator_1.param)("userName")
     .isString()
-    .withMessage("el id debe ser entero!"), validateRequest_1.validateReq, 
-// validationToken,
-(req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    .withMessage("el id debe ser entero!"), validateRequest_1.validateReq, token_1.validationToken, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const userById = yield dataBase_1.appDataSource.getRepository("user").findOne({ where: { userName: req.params["userName"] } });
         if (!userById)
@@ -211,9 +209,7 @@ router.get("/user/get_by_userName/:userName", (0, express_validator_1.param)("us
 }));
 router.get("/user/get_by_id/:id", (0, express_validator_1.param)("id")
     .isNumeric()
-    .withMessage("el id debe ser entero!"), validateRequest_1.validateReq, 
-// validationToken,
-(req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    .withMessage("el id debe ser entero!"), validateRequest_1.validateReq, token_1.validationToken, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const userById = yield dataBase_1.appDataSource.getRepository("user").findOne({ where: { id: req.params["id"] }, relations: ["employee", "employee.person", "employee.role"] });
         if (!userById)
@@ -290,9 +286,7 @@ router.put("/user/edit_by_id/:id", (0, express_validator_1.checkSchema)({
 }), (0, express_validator_1.param)("id")
     .isNumeric({ no_symbols: true })
     .notEmpty()
-    .withMessage("el id debe ser numerico!"), 
-// validationToken,
-(req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    .withMessage("el id debe ser numerico!"), token_1.validationToken, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const userToEdit = yield dataBase_1.appDataSource.getRepository("user").findOne({ where: { id: req.params["id"] } });
         if (!userToEdit)

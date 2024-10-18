@@ -64,6 +64,17 @@ router.post("/reserve/register/", (0, express_validator_1.checkSchema)({
         notEmpty: true,
         errorMessage: "el campo detalle de reserva es invalido!"
     },
+    comision: {
+        in: ["body"],
+        notEmpty: true,
+        errorMessage: "el campo comision es invalido!"
+    },
+    notation: {
+        in: ["body"],
+        isString: true,
+        notEmpty: true,
+        errorMessage: "el campo nota es invalido!"
+    },
     activo: {
         in: ["body"],
         notEmpty: true,
@@ -99,6 +110,8 @@ router.post("/reserve/register/", (0, express_validator_1.checkSchema)({
             initionDate: req.body["initionDate"],
             expirationDate: req.body["expirationDate"],
             activo: req.body["activo"],
+            comision: req.body["comision"],
+            notation: req.body["notation"],
             asignedCustomer: asignedCustomer,
             asignedEmployee: asignedEmployee
         }, []);
@@ -110,17 +123,17 @@ router.post("/reserve/register/", (0, express_validator_1.checkSchema)({
             const newReserveDetail = Object.assign({}, reserveDetail);
             switch (item[0]) {
                 case "ms":
-                    const microService = yield dataBase_1.appDataSource.getRepository("micro_service").findOne({ where: { name: item[1] } });
+                    const microService = yield dataBase_1.appDataSource.getRepository("micro_service").findOne({ where: { name: item[1], activo: true } });
                     newReserveDetail["microServicio"] = microService;
                     yield dataBase_1.appDataSource.getRepository("reserve_detail").save(newReserveDetail);
                     break;
                 case "s":
-                    const service = yield dataBase_1.appDataSource.getRepository("service").findOne({ where: { description: item[1] } });
+                    const service = yield dataBase_1.appDataSource.getRepository("service").findOne({ where: { description: item[1], activo: true } });
                     newReserveDetail["service"] = service;
                     yield dataBase_1.appDataSource.getRepository("reserve_detail").save(newReserveDetail);
                     break;
                 case "p":
-                    const promotion = yield dataBase_1.appDataSource.getRepository("promotion").findOne({ where: { name: item[1] } });
+                    const promotion = yield dataBase_1.appDataSource.getRepository("promotion").findOne({ where: { name: item[1], activo: true } });
                     newReserveDetail["promotion"] = promotion;
                     yield dataBase_1.appDataSource.getRepository("reserve_detail").save(newReserveDetail);
                     break;
@@ -167,6 +180,17 @@ router.put("/reserve/update_by_id/:id", (0, express_validator_1.checkSchema)({
         notEmpty: true,
         errorMessage: "el campo detalle de reserva es invalido!"
     },
+    comision: {
+        in: ["body"],
+        notEmpty: true,
+        errorMessage: "el campo comision es invalido!"
+    },
+    notation: {
+        in: ["body"],
+        isString: true,
+        notEmpty: true,
+        errorMessage: "el campo nota es invalido!"
+    },
     activo: {
         in: ["body"],
         notEmpty: true,
@@ -184,6 +208,7 @@ router.put("/reserve/update_by_id/:id", (0, express_validator_1.checkSchema)({
         if (!reserveToUpdate)
             return res.status(403).send({ message: "la reserva solicitada no existe!" });
         const asignedEmployee = yield dataBase_1.appDataSource.getRepository("employee").findOne({ where: { person: { firstName: req.body["asignedEmployee"] } }, relations: ["person"] });
+        console.log(req.body["asignedEmployee"]);
         if (!asignedEmployee)
             return res.status(403).send({ message: "el empleado no existe!" });
         const asignedCustomer = yield dataBase_1.appDataSource.getRepository("customer").findOne({ where: { person: { firstName: req.body["asignedCustomer"] } }, relations: ["person"] });
@@ -205,6 +230,8 @@ router.put("/reserve/update_by_id/:id", (0, express_validator_1.checkSchema)({
             asignedCustomer: asignedCustomer,
             asignedEmployee: asignedEmployee,
             activo: req.body["activo"],
+            comision: req.body["comision"],
+            notation: req.body["notation"],
             initionDate: req.body["initionDate"],
             expirationDate: req.body["expirationDate"]
         });
@@ -214,21 +241,21 @@ router.put("/reserve/update_by_id/:id", (0, express_validator_1.checkSchema)({
             const newReserveDetail = Object.assign({}, reserveDetail);
             switch (item[0]) {
                 case "ms":
-                    const microService = yield dataBase_1.appDataSource.getRepository("micro_service").findOne({ where: { name: item[1] } });
+                    const microService = yield dataBase_1.appDataSource.getRepository("micro_service").findOne({ where: { name: item[1], activo: true } });
                     if (!microService)
                         return res.status(403).send({ message: "error al actualizar la reserva!" });
                     newReserveDetail["microServicio"] = microService;
                     yield dataBase_1.appDataSource.getRepository("reserve_detail").save(newReserveDetail);
                     break;
                 case "s":
-                    const service = yield dataBase_1.appDataSource.getRepository("service").findOne({ where: { description: item[1] } });
+                    const service = yield dataBase_1.appDataSource.getRepository("service").findOne({ where: { description: item[1], activo: true } });
                     if (!service)
                         return res.status(403).send({ message: "error al actualizar la reserva!" });
                     newReserveDetail["service"] = service;
                     yield dataBase_1.appDataSource.getRepository("reserve_detail").save(newReserveDetail);
                     break;
                 case "p":
-                    const promotion = yield dataBase_1.appDataSource.getRepository("promotion").findOne({ where: { name: item[1] } });
+                    const promotion = yield dataBase_1.appDataSource.getRepository("promotion").findOne({ where: { name: item[1], activo: true } });
                     if (!promotion)
                         return res.status(403).send({ message: "error al actualizar la reserva!" });
                     newReserveDetail["promotion"] = promotion;

@@ -9,37 +9,28 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.User = void 0;
+exports.Pigment = void 0;
 const typeorm_1 = require("typeorm");
-const employee_1 = require("./employee");
-let User = class User extends typeorm_1.BaseEntity {
+const pigment_process_1 = require("./pigment_process");
+let Pigment = class Pigment extends typeorm_1.BaseEntity {
 };
-exports.User = User;
+exports.Pigment = Pigment;
 __decorate([
     (0, typeorm_1.PrimaryGeneratedColumn)("increment"),
     __metadata("design:type", Number)
-], User.prototype, "id", void 0);
+], Pigment.prototype, "id", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ length: 150 }),
+    (0, typeorm_1.Column)(),
     __metadata("design:type", String)
-], User.prototype, "userName", void 0);
+], Pigment.prototype, "nombre", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ length: 60 }),
-    __metadata("design:type", String)
-], User.prototype, "password", void 0);
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", Boolean)
+], Pigment.prototype, "activo", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ nullable: true }),
-    __metadata("design:type", String)
-], User.prototype, "type", void 0);
-__decorate([
-    (0, typeorm_1.Column)({ nullable: true }),
-    __metadata("design:type", String)
-], User.prototype, "avatar", void 0);
-__decorate([
-    (0, typeorm_1.OneToOne)(() => employee_1.Employee),
-    (0, typeorm_1.JoinColumn)(),
-    __metadata("design:type", employee_1.Employee)
-], User.prototype, "employee", void 0);
-exports.User = User = __decorate([
+    (0, typeorm_1.OneToMany)(() => pigment_process_1.ProcessPigment, (processPigment) => processPigment.pigmento),
+    __metadata("design:type", Array)
+], Pigment.prototype, "pigmentoProcesos", void 0);
+exports.Pigment = Pigment = __decorate([
     (0, typeorm_1.Entity)()
-], User);
+], Pigment);

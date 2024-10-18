@@ -29,6 +29,10 @@ __decorate([
     __metadata("design:type", Date)
 ], Process.prototype, "fecha", void 0);
 __decorate([
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", Boolean)
+], Process.prototype, "activo", void 0);
+__decorate([
     (0, typeorm_1.ManyToOne)(() => anamnesis_1.Anamnesis, (anamnesis) => anamnesis.procedimientos),
     __metadata("design:type", anamnesis_1.Anamnesis)
 ], Process.prototype, "anamnesis", void 0);

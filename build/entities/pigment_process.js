@@ -12,6 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ProcessPigment = void 0;
 const typeorm_1 = require("typeorm");
 const process_1 = require("./process");
+const pigment_1 = require("./pigment");
 let ProcessPigment = class ProcessPigment extends typeorm_1.BaseEntity {
 };
 exports.ProcessPigment = ProcessPigment;
@@ -20,17 +21,17 @@ __decorate([
     __metadata("design:type", Number)
 ], ProcessPigment.prototype, "id", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
+    (0, typeorm_1.Column)({ nullable: true }),
     __metadata("design:type", String)
 ], ProcessPigment.prototype, "nombre", void 0);
-__decorate([
-    (0, typeorm_1.Column)(),
-    __metadata("design:type", String)
-], ProcessPigment.prototype, "descripcion", void 0);
 __decorate([
     (0, typeorm_1.ManyToOne)(() => process_1.Process, (process) => process.pigmentoProcesos),
     __metadata("design:type", process_1.Process)
 ], ProcessPigment.prototype, "proceso", void 0);
+__decorate([
+    (0, typeorm_1.ManyToOne)(() => pigment_1.Pigment, (pigment) => pigment.pigmentoProcesos),
+    __metadata("design:type", pigment_1.Pigment)
+], ProcessPigment.prototype, "pigmento", void 0);
 exports.ProcessPigment = ProcessPigment = __decorate([
     (0, typeorm_1.Entity)()
 ], ProcessPigment);

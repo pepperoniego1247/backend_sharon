@@ -18,6 +18,10 @@ import producSaleRoutes from "./routes/saleProduct.routes";
 import anamnesisRoutes from "./routes/anamnesis.routes";
 import dashBoardRoutes from "./routes/dashBoard.routes";
 import orderEntryRoutes from "./routes/orderEntry.routes";
+import pigment from "./routes/pigment.routes";
+import process from "./routes/process.routes";
+import payment from "./routes/payment.routes";
+
 
 const app = express();
 app.use(morgan("dev"));
@@ -39,6 +43,9 @@ app.use(saleRoutes);
 app.use(promotionRoutes);
 app.use(productRoutes);
 app.use(producSaleRoutes);
+app.use(pigment);
+app.use(process);
+app.use(payment);
 // app.set('view engine', 'ejs');
 // app.set('views', path.join(__dirname, 'extras'));
 

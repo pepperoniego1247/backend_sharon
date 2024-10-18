@@ -49,17 +49,12 @@ router.post("/services/register/",
     }
 }), validateRequest_1.validateReq, token_1.validationToken, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const data = yield dataBase_1.appDataSource.getRepository("service").findOne({ where: { description: req.body["description"] } });
+        const data = yield dataBase_1.appDataSource.getRepository("service").findOne({ where: { description: req.body["description"], activo: true } });
         if (data)
             return res.status(403).send({ message: "el servicio ya existe" });
         const newService = __rest(req.body, []);
         const newServiceCreated = Object.assign({}, newService);
         const response = yield dataBase_1.appDataSource.getRepository("service").save(newServiceCreated);
-        req.body["microServices"].forEach((name) => __awaiter(void 0, void 0, void 0, function* () {
-            const microService = yield dataBase_1.appDataSource.getRepository("micro_service").findOne({ where: { name: name } });
-            if (microService["service"])
-                return res.status(403).send({ message: "El microservicio ya esta asignado" });
-        }));
         req.body["microServices"].forEach((name) => __awaiter(void 0, void 0, void 0, function* () {
             yield dataBase_1.appDataSource.getRepository("micro_service").update({ name: name }, { service: response });
         }));
@@ -101,7 +96,7 @@ router.put("/services/update_by_id/:id", (0, express_validator_1.checkSchema)({
     .isNumeric({ no_symbols: true })
     .withMessage("el id es invalido!"), token_1.validationToken, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const serviceAlreadyExists = yield dataBase_1.appDataSource.getRepository("service").findOne({ where: { id: req.params["id"] } });
+        const serviceAlreadyExists = yield dataBase_1.appDataSource.getRepository("service").findOne({ where: { id: req.params["id"], activo: true } });
         if (!serviceAlreadyExists)
             return res.status(403).send({ message: "el servicio no existe!" });
         const { microServices } = req.body;
@@ -119,6 +114,21 @@ router.put("/services/update_by_id/:id", (0, express_validator_1.checkSchema)({
     }
     catch (error) {
         return res.status(500).send({ message: "ocurrio un error en el servidor!" });
+    }
+}));
+router.put("/services/disable_by_id/:id", (0, express_validator_1.param)("id")
+    .notEmpty()
+    .isNumeric({ no_symbols: true })
+    .withMessage("error en el campo id"), (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        yield dataBase_1.appDataSource.getRepository("service").update({ id: Number(req.params["id"]) }, { activo: false });
+        return res.send({ message: "el servicio se ha deshabilitado de manera correcta!" });
+    }
+    catch (error) {
+        return res.status(500).send({
+            message: "Error interno en el servidor",
+            error: error.message // Devuelve el mensaje exacto del error
+        });
     }
 }));
 exports.default = router;

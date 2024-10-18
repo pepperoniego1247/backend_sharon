@@ -30,6 +30,10 @@ __decorate([
     __metadata("design:type", Number)
 ], Service.prototype, "price", void 0);
 __decorate([
+    (0, typeorm_1.Column)({ nullable: true }),
+    __metadata("design:type", Boolean)
+], Service.prototype, "activo", void 0);
+__decorate([
     (0, typeorm_1.OneToMany)(() => reserveDetail_1.ReserveDetail, (reserveDetail) => reserveDetail.service),
     __metadata("design:type", Array)
 ], Service.prototype, "reserveDetails", void 0);

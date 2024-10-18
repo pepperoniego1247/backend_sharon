@@ -1,20 +1,24 @@
-import { BaseEntity, Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { BaseEntity, Column, Entity, ManyToOne, PrimaryGeneratedColumn, OneToMany } from "typeorm";
 import { Employee } from "./employee";
+import { Payment_Detail } from "./payment_detail";
 
 @Entity()
 export class Payment extends BaseEntity {
     @PrimaryGeneratedColumn("increment")
     id: number;
 
+    @OneToMany(() => Payment_Detail, (payment_Detail) => payment_Detail.payment)
+    paymentDetails: Payment_Detail[];
+
     @ManyToOne(() => Employee, (employee) => employee.payments)
     employee: Employee;
-
-    @Column({ nullable: false })
-    extra: number;
 
     @Column()
     date: Date;
 
     @Column()
-    totalAmount: number;
+    total: number;
+
+    @Column()
+    activo: boolean;
 }

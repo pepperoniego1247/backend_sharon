@@ -64,7 +64,7 @@ router.post("/sale/register/:id", (0, express_validator_1.checkSchema)({
     }
 }), (0, express_validator_1.param)("id")
     .notEmpty()
-    .isNumeric({ no_symbols: true }), validateRequest_1.validateReq, token_1.validationToken, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    .isArray(), validateRequest_1.validateReq, token_1.validationToken, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     let id = "";
     try {
         const tempSaleDetail = [];
@@ -93,28 +93,34 @@ router.post("/sale/register/:id", (0, express_validator_1.checkSchema)({
             const { service, promotion, microServicio } = detail;
             let price = 0;
             let name = "";
-            if (service) {
+            let aux = false;
+            if (service && service.activo === true) {
                 price = service["price"];
                 name = service["description"];
+                aux = true;
             }
-            if (promotion) {
+            if (promotion && promotion.activo === true) {
                 price = promotion["precio"];
                 name = promotion["name"];
+                aux = true;
             }
-            if (microServicio) {
+            if (microServicio && microServicio.activo === true) {
                 price = microServicio["price"];
                 name = microServicio["name"];
+                aux = true;
             }
             ;
-            const newSaleDetail = __rest({
-                reserveDetail: detail,
-                sale: sale,
-                subTotal: price,
-                name: name
-            }, []);
-            saleTotalAmount += price;
-            const newSaleDetailCreated = Object.assign({}, newSaleDetail);
-            tempSaleDetail.push(newSaleDetailCreated);
+            if (aux === true) {
+                const newSaleDetail = __rest({
+                    reserveDetail: detail,
+                    sale: sale,
+                    subTotal: price,
+                    name: name
+                }, []);
+                saleTotalAmount += price;
+                const newSaleDetailCreated = Object.assign({}, newSaleDetail);
+                tempSaleDetail.push(newSaleDetailCreated);
+            }
         }));
         // await appDataSource.getRepository("sale_detail").save();
         if (req.body["typeOfDocument"] === "Boleta de venta") {
@@ -157,7 +163,7 @@ router.post("/sale/register/:id", (0, express_validator_1.checkSchema)({
         yield dataBase_1.appDataSource.getRepository("sale").update({ id: sale["id"] }, { totalAmount: saleTotalAmount });
         const saleN = yield dataBase_1.appDataSource.getRepository("sale").findOne({ where: { id: sale["id"] }, relations: ["asignedEmployee", "saleDetails"] });
         return res.send({
-            pdfUrl: `https://backend-sharon-3.onrender.com/sale/get_sale_note_by_code/${saleN["id"]}`,
+            pdfUrl: `http://localhost:4000/sale/get_sale_note_by_code/${saleN["id"]}`,
             documentId: saleN["id"]
         });
     }

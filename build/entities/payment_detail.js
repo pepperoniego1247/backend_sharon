@@ -9,37 +9,40 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.User = void 0;
+exports.Payment_Detail = void 0;
 const typeorm_1 = require("typeorm");
-const employee_1 = require("./employee");
-let User = class User extends typeorm_1.BaseEntity {
+const payment_1 = require("./payment");
+let Payment_Detail = class Payment_Detail extends typeorm_1.BaseEntity {
 };
-exports.User = User;
+exports.Payment_Detail = Payment_Detail;
 __decorate([
     (0, typeorm_1.PrimaryGeneratedColumn)("increment"),
     __metadata("design:type", Number)
-], User.prototype, "id", void 0);
+], Payment_Detail.prototype, "id", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ length: 150 }),
+    (0, typeorm_1.ManyToOne)(() => payment_1.Payment, (payment) => payment.paymentDetails),
+    __metadata("design:type", payment_1.Payment)
+], Payment_Detail.prototype, "payment", void 0);
+__decorate([
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", Number)
+], Payment_Detail.prototype, "employeeId", void 0);
+__decorate([
+    (0, typeorm_1.Column)(),
     __metadata("design:type", String)
-], User.prototype, "userName", void 0);
+], Payment_Detail.prototype, "name", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ length: 60 }),
+    (0, typeorm_1.Column)(),
     __metadata("design:type", String)
-], User.prototype, "password", void 0);
+], Payment_Detail.prototype, "lastName", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ nullable: true }),
-    __metadata("design:type", String)
-], User.prototype, "type", void 0);
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", Number)
+], Payment_Detail.prototype, "extra", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ nullable: true }),
-    __metadata("design:type", String)
-], User.prototype, "avatar", void 0);
-__decorate([
-    (0, typeorm_1.OneToOne)(() => employee_1.Employee),
-    (0, typeorm_1.JoinColumn)(),
-    __metadata("design:type", employee_1.Employee)
-], User.prototype, "employee", void 0);
-exports.User = User = __decorate([
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", Number)
+], Payment_Detail.prototype, "totalAmount", void 0);
+exports.Payment_Detail = Payment_Detail = __decorate([
     (0, typeorm_1.Entity)()
-], User);
+], Payment_Detail);
